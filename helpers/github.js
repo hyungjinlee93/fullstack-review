@@ -36,7 +36,8 @@ let getAllRepos = (req, res) => {
           updated_at: element.updated_at,
           fork: element.fork,
           user: element.user,
-          avatar_url: element.avatar_url
+          avatar_url: element.avatar_url,
+          html_url: element.html_url
         });
       }
       list.sort(function(a, b) {

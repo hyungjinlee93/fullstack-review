@@ -7,7 +7,8 @@ let repoSchema = mongoose.Schema({
   updated_at: Date,
   fork: Boolean,
   user: String,
-  avatar_url: String
+  avatar_url: String,
+  html_url: String
 });
 
 let Repo = mongoose.model('Repo', repoSchema);
@@ -21,7 +22,8 @@ let save = (element) => {
         updated_at: element.updated_at,
         fork: element.fork,
         user: element.owner.login,
-        avatar_url: element.owner.avatar_url
+        avatar_url: element.owner.avatar_url,
+        html_url: element.html_url
       });
       info.save();
     }

@@ -1,20 +1,23 @@
 import React from 'react';
 
 const RepoList = (props) => {
-  let list = props.repos.map(element => (
-    <tr>
+  let list = props.repos.map(element => {
+    return (
+    <tr key={element.idrepo}>
       <td><img src={element.avatar_url} /></td>
       <td>User: {element.user}</td>
-      <td>Repo Name: {element.reponame}</td>
+      <td><a href={element.html_url}>Repo Name: {element.reponame}</a></td>
       <td>Last Updated: {element.updated_at}</td>
     </tr>
-  ));
+  )});
   return (
     <div>
       <p>Repo List Component</p>
-      <p>There are {props.repos.length} repos.</p>
+      <p>Showing {props.repos.length} repos.</p>
       <table>
-        {list}
+        <tbody>
+          {list}
+        </tbody>
       </table>
     </div>
   )
