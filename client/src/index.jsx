@@ -7,15 +7,27 @@ import RepoList from './components/RepoList.jsx';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       repos: []
     }
-
   }
 
   search (term) {
     console.log(`${term} was searched`);
-    // TODO
+    let query = {term};
+    fetch('/repos', {
+      method: 'POST',
+      body: JSON.stringify(query),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then (() => {
+      this.componentDidMount();
+    })
+    .catch ((err) => {
+      console.log('err: ', err);
+    });
   }
 
   render () {
@@ -24,6 +36,21 @@ class App extends React.Component {
       <RepoList repos={this.state.repos}/>
       <Search onSearch={this.search.bind(this)}/>
     </div>)
+  }
+
+  componentDidMount () {
+    fetch('/repos', {
+      method: 'GET'
+    })
+    .then (response => response.json())
+    .then (data => {
+      this.setState({
+        repos: data.slice(0, 25)
+      });
+    })
+    .catch ((err) => {
+      console.log('err: ', err);
+    });
   }
 }
 
